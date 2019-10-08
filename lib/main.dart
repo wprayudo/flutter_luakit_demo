@@ -45,25 +45,25 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
-  List<dynamic> weathers = new List<dynamic>();
+  List<dynamic> companies = new List<dynamic>();
 
   @override
   void initState() {
     super.initState();
-    FlutterLuakitPlugin.callLuaFun("WeatherManager", "getWeather").then((dynamic d) {
-      print("getWeather" + d.toString());
-      setState(() {
-        if(d != null) {
-          weathers = d;
-        }
-      });
-    });
+  //  FlutterLuakitPlugin.callLuaFun("Companies", "getCompanies").then((dynamic d) {
+  //    print("getCompanies" + d.toString());
+  //    setState(() {
+  //      if(d != null) {
+  //        companies = d;
+  //      }
+  //    });
+  //  });
 
-    FlutterLuakitPlugin.callLuaFun("WeatherManager", "loadWeather").then((dynamic d) {
-      print("loadWeather" + d.toString());
+    FlutterLuakitPlugin.callLuaFun("Companies", "loadCompanies").then((dynamic d) {
+      print("loadCompanies" + d.toString());
       setState(() {
         if(d != null) {
-          weathers = d;
+          companies = d;
         }
       });
     });
@@ -82,18 +82,18 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("weather test"),
+        title: Text("Companies"),
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
         child: new ListView.builder(
-          itemCount: weathers.length,
+          itemCount: companies.length,
           itemBuilder: (context, index) {
-            Map<dynamic, dynamic> m = weathers[index];
+            Map<dynamic, dynamic> m = companies[index];
             return new ListTile(
-              title: new Text('${m["city"]} ' + "日出日落：" + '${m["sun_info"]} '),
-              subtitle: new Text("最高温度：" +'${m["high"]} '+"最低温度：" +'${m["low"]} '+'${m["wind_direction"]} '+'${m["wind"]} '),
+              title: new Text('${m['address']} '  + '${m['zip']} '),
+              subtitle: new Text('${m['city']} '+'${m['slug']} '+'${m['state']} '+'${m['contact']} '),
             );
           },
       ),
