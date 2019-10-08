@@ -23,16 +23,17 @@ local _tableParams = {
 	    create_user_id = {"CharField",{max_length = 100, unique = true, foreign_key = true, to = "test.db_user",}}
 	},
 
-	weather = {
+	companies = {
 		__dbname__ = "test.db",
-	    __tablename__ = "weather",
-	    id = {"IntegerField",{unique = true, null = false , primary_key = true}},
-	    wind = {"TextField",{}},
-	    wind_direction = {"TextField",{}},
-	    sun_info = {"TextField",{}},
-	    low = {"IntegerField",{}},
-	    high = {"IntegerField",{}},
-	    city =  {"TextField",{}},
+	    __tablename__ = "companies",
+	    address = {"TextField",{}},
+	    zip = {"TextField",{null = true}},
+	    city = {"TextField",{}},
+	    slug = {"TextField",{}},
+	    state = {"TextField",{}},
+	    contact = {"TextField",{}},
+	    name =  {"TextField",{}},
+        account =  {"IntegerField",{unique = false, null = false , primary_key = true}},
 	 },
 
 }
