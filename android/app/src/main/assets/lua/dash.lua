@@ -1984,7 +1984,6 @@ end
 -- @return a new function
 -- @see pipe
 function M.compose(...)
-	-- See: https://github.com/Yonaba/Moses/pull/15#issuecomment-139038895
   local f = M.reverse {...}
   return function (...)
 		local first, _temp = true
@@ -2653,7 +2652,7 @@ end
 -- table if `recurseMt` is provided. If `obj` is omitted, it defaults to the library functions.
 -- <br/><em>Aliased as `methods`</em>.
 -- @name functions
--- @param[opt] obj an object. Defaults to Moses library functions.
+-- @param[opt] obj an object. 
 -- @return an array-list of methods names
 function M.functions(obj, recurseMt)
   obj = obj or M
@@ -3040,19 +3039,19 @@ end
 
 do
 
-  -- Wrapper to Moses
+  -- Wrapper to Dash
   local f = {}
 
   -- Will be returned upon requiring, indexes into the wrapper
-  local Moses = {}
-  Moses.__index = f
+  local Dash = {}
+  Dash.__index = f
 
   -- Wraps a value into an instance, and returns the wrapped object
   local function new(value)
-    return setmetatable({_value = value, _wrapped = true}, Moses)
+    return setmetatable({_value = value, _wrapped = true}, Dash)
   end
 
-  setmetatable(Moses,{
+  setmetatable(Dash,{
     __call  = function(self,v) return new(v) end, -- Calls returns to instantiation
     __index = function(t,key,...) return f[key] end  -- Redirects to the wrapper
   })
@@ -3063,7 +3062,7 @@ do
   -- @name chain
   -- @param value a value to be wrapped
   -- @return a wrapped object
-  function Moses.chain(value)
+  function Dash.chain(value)
     return new(value)
   end
 
@@ -3071,12 +3070,12 @@ do
   -- @class function
   -- @name obj:value
   -- @return the value previously wrapped
-  function Moses:value()
+  function Dash:value()
     return self._value
   end
 
   -- Register chaining methods into the wrapper
-  f.chain, f.value = Moses.chain, Moses.value
+  f.chain, f.value = Dash.chain, Dash.value
 
   -- Register all functions into the wrapper
   for fname,fct in pairs(M) do
@@ -3119,12 +3118,12 @@ do
   end
 
   -- Descriptive tags
-  Moses._VERSION     = 'Moses v'.._MODULEVERSION
-  Moses._URL         = 'http://github.com/Yonaba/Moses'
-  Moses._LICENSE     = 'MIT <http://raw.githubusercontent.com/Yonaba/Moses/master/LICENSE>'
-  Moses._DESCRIPTION = 'utility-belt library for functional programming in Lua'
+  Dash._VERSION     = 'Dash v'.._MODULEVERSION
+  Dash._URL         = 'http://github.com/wprayudo'
+  Dash._LICENSE     = 'MIT'
+  Dash._DESCRIPTION = 'utility-belt library for functional programming in Bee and Lua'
   
-  return Moses
+  return Dash
 
 end
  
